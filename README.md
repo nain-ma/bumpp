@@ -7,14 +7,13 @@ Forked from [`version-bump-prompt`](https://github.com/JS-DevTools/version-bump-
 ###### Changes in this fork
 
 - Renamed to `bumpp` - so you can use `npx bumpp` directly.
-- Ships ESM and CJS bundles.
-- Add a new argument `--execute` to execute the command, or execute a function before committing.
 - Use the current version's `preid` when available.
 - Confirmation before bumping.
 - Enable `--commit` `--tag` `--push` by default. (opt-out by `--no-push`, etc.)
-- `--sign` to sign the commit and tag.
 - `-r` or `--recursive` to bump all packages in the monorepo.
+- `--execute` to execute the command, or execute a function before committing.
 - Conventional Commits by default.
+- Ships ESM and CJS bundles.
 - Supports config file `bump.config.ts`:
 
 ```ts
@@ -23,8 +22,5 @@ import { defineConfig } from 'bumpp'
 
 export default defineConfig({
   // ...options
-  execute(config) {
-    // ...`execute` could receive a function here
-  }
 })
 ```
