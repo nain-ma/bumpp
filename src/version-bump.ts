@@ -1,10 +1,10 @@
 import type { VersionBumpOptions } from './types/version-bump-options'
 import type { VersionBumpResults } from './types/version-bump-results'
 import process from 'node:process'
-import * as ezSpawn from '@jsdevtools/ez-spawn'
 import symbols from 'log-symbols'
 import c from 'picocolors'
 import prompts from 'prompts'
+import { x } from 'tinyexec'
 import { getCurrentVersion } from './get-current-version'
 import { getNewVersion } from './get-new-version'
 import { formatVersionString, gitCommit, gitPush, gitTag } from './git'
@@ -77,7 +77,11 @@ export async function versionBump(arg: (VersionBumpOptions) | string = {}): Prom
     }
     else {
       console.log(symbols.info, 'Executing script', operation.options.execute)
-      await ezSpawn.async(operation.options.execute, { stdio: 'inherit' })
+      await x(operation.options.execute, [], {
+        nodeOptions: {
+          stdio: 'inherit',
+        },
+      })
       console.log(symbols.success, 'Script finished')
     }
   }

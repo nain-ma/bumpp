@@ -1,5 +1,5 @@
 import type { Operation } from './operation'
-import * as ezSpawn from '@jsdevtools/ez-spawn'
+import { x } from 'tinyexec'
 import { ProgressEvent } from './types/version-bump-progress'
 
 /**
@@ -35,7 +35,7 @@ export async function gitCommit(operation: Operation): Promise<Operation> {
   if (!all)
     args = args.concat(updatedFiles)
 
-  await ezSpawn.async('git', ['commit', ...args])
+  await x('git', ['commit', ...args])
 
   return operation.update({ event: ProgressEvent.GitCommit, commitMessage })
 }
@@ -69,7 +69,7 @@ export async function gitTag(operation: Operation): Promise<Operation> {
     args.push('--sign')
   }
 
-  await ezSpawn.async('git', ['tag', ...args])
+  await x('git', ['tag', ...args])
 
   return operation.update({ event: ProgressEvent.GitTag, tagName })
 }
@@ -82,11 +82,11 @@ export async function gitPush(operation: Operation): Promise<Operation> {
     return operation
 
   // Push the commit
-  await ezSpawn.async('git', 'push')
+  await x('git', ['push'])
 
   if (operation.options.tag) {
     // Push the tag
-    await ezSpawn.async('git', ['push', '--tags'])
+    await x('git', ['push', '--tags'])
   }
 
   return operation.update({ event: ProgressEvent.GitPush })

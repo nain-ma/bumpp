@@ -1,6 +1,6 @@
 import type { Operation } from './operation'
-import * as ezSpawn from '@jsdevtools/ez-spawn'
 import c from 'picocolors'
+import { x } from 'tinyexec'
 
 const messageColorMap: Record<string, (c: string) => string> = {
   chore: c.gray,
@@ -92,22 +92,18 @@ export function formatParsedCommits(commits: ParsedCommit[]) {
 
 export async function printRecentCommits(operation: Operation): Promise<void> {
   let sha: string | undefined
-  sha ||= await ezSpawn
-    .async(
-      'git',
-      ['rev-list', '-n', '1', `v${operation.state.currentVersion}`],
-      { stdio: 'pipe' },
-    )
+  sha ||= await x(
+    'git',
+    ['rev-list', '-n', '1', `v${operation.state.currentVersion}`],
+    { nodeOptions: { stdio: 'pipe' }, throwOnError: false },
+  )
     .then(res => res.stdout.trim())
-    .catch(() => undefined)
-  sha ||= await ezSpawn
-    .async(
-      'git',
-      ['rev-list', '-n', '1', operation.state.currentVersion],
-      { stdio: 'pipe' },
-    )
+  sha ||= await x(
+    'git',
+    ['rev-list', '-n', '1', operation.state.currentVersion],
+    { nodeOptions: { stdio: 'pipe' }, throwOnError: false },
+  )
     .then(res => res.stdout.trim())
-    .catch(() => undefined)
 
   if (!sha) {
     console.log(
@@ -117,7 +113,7 @@ export async function printRecentCommits(operation: Operation): Promise<void> {
     return
   }
 
-  const { stdout } = await ezSpawn.async(
+  const { stdout } = await x(
     'git',
     [
       '--no-pager',
@@ -125,7 +121,11 @@ export async function printRecentCommits(operation: Operation): Promise<void> {
       `${sha}..HEAD`,
       '--oneline',
     ],
-    { stdio: 'pipe' },
+    {
+      nodeOptions: {
+        stdio: 'pipe',
+      },
+    },
   )
 
   const parsed = parseCommits(stdout.toString().trim())
