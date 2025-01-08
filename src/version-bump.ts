@@ -80,6 +80,7 @@ export async function versionBump(arg: (VersionBumpOptions) | string = {}): Prom
       const [command, ...args] = tokenizeArgs(operation.options.execute)
       console.log(symbols.info, 'Executing script', command, ...args)
       await x(command, args, {
+        throwOnError: true,
         nodeOptions: {
           stdio: 'inherit',
           cwd: operation.options.cwd,
