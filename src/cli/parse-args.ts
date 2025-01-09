@@ -39,6 +39,7 @@ export async function parseArgs(): Promise<ParsedArgs> {
         noGitCheck: args.noGitCheck,
         confirm: !args.yes,
         noVerify: !args.verify,
+        install: args.install,
         files: [...(args['--'] || []), ...resultArgs],
         ignoreScripts: args.ignoreScripts,
         currentVersion: args.currentVersion,
@@ -83,6 +84,7 @@ export function loadCliArgs(argv = process.argv) {
     .option('-t, --tag [tag]', 'Tag name', { default: true })
     .option('--no-tag', 'Skip tag', { default: false })
     .option('--sign', 'Sign commit and tag')
+    .option('--install', `Run 'npm install' after bumping version (default: ${bumpConfigDefaults.install})`, { default: false })
     .option('-p, --push', `Push to remote (default: ${bumpConfigDefaults.push})`)
     .option('-y, --yes', `Skip confirmation (default: ${!bumpConfigDefaults.confirm})`)
     .option('-r, --recursive', `Bump package.json files recursively (default: ${bumpConfigDefaults.recursive})`)

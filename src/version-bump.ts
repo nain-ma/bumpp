@@ -72,6 +72,29 @@ export async function versionBump(arg: (VersionBumpOptions) | string = {}): Prom
   // Update the version number in all files
   await updateFiles(operation)
 
+  if (operation.options.install) {
+    const { detect } = await import('package-manager-detector/detect')
+    const pm = await detect()
+    if (!pm?.name) {
+      throw new Error('Could not detect package manager, failed to run npm install')
+    }
+
+    const { COMMANDS, constructCommand } = await import('package-manager-detector/commands')
+    const command = constructCommand(COMMANDS[pm.name].install, [])
+    if (!command) {
+      throw new Error('Could not find install command for package manager')
+    }
+    console.log(symbols.info, 'Installing dependencies with', `${command.command} ${command.args.join(' ')}`)
+    await x(command.command, command.args, {
+      throwOnError: true,
+      nodeOptions: {
+        stdio: 'inherit',
+        cwd: operation.options.cwd,
+      },
+    })
+    console.log(symbols.success, 'Dependencies installed')
+  }
+
   if (operation.options.execute) {
     if (typeof operation.options.execute === 'function') {
       await operation.options.execute(operation)
@@ -117,6 +140,8 @@ function printSummary(operation: Operation) {
     console.log(` execute ${c.bold(typeof operation.options.execute === 'function' ? 'function' : operation.options.execute)}`)
   if (operation.options.push)
     console.log(`    push ${c.cyan(c.bold('yes'))}`)
+  if (operation.options.install)
+    console.log(` install ${c.cyan(c.bold('yes'))}`)
   console.log()
   console.log(`    from ${c.bold(operation.state.currentVersion)}`)
   console.log(`      to ${c.green(c.bold(operation.state.newVersion))}`)

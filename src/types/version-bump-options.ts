@@ -65,6 +65,13 @@ export interface VersionBumpOptions {
   push?: boolean
 
   /**
+   * Run `npm install` after bumping the version number.
+   *
+   * Defaults to `false`.
+   */
+  install?: boolean
+
+  /**
    * Indicates whether the git commit should include ALL files (`git commit --all`)
    * rather than just the files that were modified by `versionBump()`.
    *

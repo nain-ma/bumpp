@@ -65,6 +65,7 @@
     "escalade": "^3.2.0",
     "js-yaml": "^4.1.0",
     "jsonc-parser": "^3.3.1",
+    "package-manager-detector": "^0.2.8",
     "prompts": "^2.4.2",
     "semver": "^7.6.3",
     "tinyexec": "^0.3.2",

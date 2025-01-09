@@ -9,6 +9,7 @@ export const bumpConfigDefaults: VersionBumpOptions = {
   push: true,
   tag: true,
   sign: false,
+  install: false,
   recursive: false,
   noVerify: false,
   confirm: true,

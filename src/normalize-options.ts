@@ -60,6 +60,7 @@ export interface NormalizedOptions {
   push: boolean
   files: string[]
   cwd: string
+  install: boolean
   interface: Interface
   ignoreScripts: boolean
   execute?: string | ((config: Operation) => void | PromiseLike<void>)
@@ -77,6 +78,7 @@ export async function normalizeOptions(raw: VersionBumpOptions): Promise<Normali
   const sign = Boolean(raw.sign)
   const push = Boolean(raw.push)
   const all = Boolean(raw.all)
+  const install = Boolean(raw.install)
   const noVerify = Boolean(raw.noVerify)
   const cwd = raw.cwd || process.cwd()
   const ignoreScripts = Boolean(raw.ignoreScripts)
@@ -181,6 +183,7 @@ export async function normalizeOptions(raw: VersionBumpOptions): Promise<Normali
     push,
     files,
     cwd,
+    install,
     interface: ui,
     ignoreScripts,
     execute,
