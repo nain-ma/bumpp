@@ -3,14 +3,30 @@ import c from 'picocolors'
 import { x } from 'tinyexec'
 
 const messageColorMap: Record<string, (c: string) => string> = {
-  chore: c.gray,
-  fix: c.yellow,
   feat: c.green,
+  feature: c.green,
+
   refactor: c.cyan,
+  style: c.cyan,
+
   docs: c.blue,
   doc: c.blue,
+  types: c.blue,
+  type: c.blue,
+
+  chore: c.gray,
   ci: c.gray,
   build: c.gray,
+  deps: c.gray,
+  dev: c.gray,
+
+  fix: c.yellow,
+  test: c.yellow,
+
+  perf: c.magenta,
+
+  revert: c.red,
+  breaking: c.red,
 }
 
 interface ParsedCommit {
