@@ -5,11 +5,13 @@ import { tokenizeArgs } from 'args-tokenizer'
 import symbols from 'log-symbols'
 import c from 'picocolors'
 import prompts from 'prompts'
+import { getRecentCommits } from 'tiny-conventional-commits-parser'
 import { x } from 'tinyexec'
 import { getCurrentVersion } from './get-current-version'
 import { getNewVersion } from './get-new-version'
 import { formatVersionString, gitCommit, gitPush, gitTag } from './git'
 import { Operation } from './operation'
+import { printRecentCommits } from './print-commits'
 import { runNpmScript } from './run-npm-script'
 import { NpmScript } from './types/version-bump-progress'
 import { updateFiles } from './update-files'
@@ -49,9 +51,14 @@ export async function versionBump(arg: (VersionBumpOptions) | string = {}): Prom
 
   const operation = await Operation.start(arg)
 
+  const commits = getRecentCommits()
+  if (operation.options.printCommits) {
+    printRecentCommits(commits)
+  }
+
   // Get the old and new version numbers
   await getCurrentVersion(operation)
-  await getNewVersion(operation)
+  await getNewVersion(operation, commits)
 
   if (arg.confirm) {
     printSummary(operation)
@@ -156,9 +163,10 @@ export async function versionBumpInfo(arg: VersionBumpOptions | string = {}): Pr
     arg = { release: arg }
 
   const operation = await Operation.start(arg)
+  const commits = getRecentCommits()
 
   // Get the old and new version numbers
   await getCurrentVersion(operation)
-  await getNewVersion(operation)
+  await getNewVersion(operation, commits)
   return operation
 }
