@@ -1,5 +1,4 @@
 #!/usr/bin/env node
 'use strict'
-const { main } = require('../dist/cli')
-
-main()
+import('../dist/cli.js')
+  .then(r => r.main())
