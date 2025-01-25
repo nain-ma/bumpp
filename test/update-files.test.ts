@@ -1,4 +1,4 @@
-import { mkdir, readFile, rmdir, writeFile } from 'node:fs/promises'
+import { mkdir, readFile, rm, writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
 import { cwd } from 'node:process'
 import { afterEach, beforeEach, expect, it } from 'vitest'
@@ -10,7 +10,7 @@ beforeEach(async () => {
 })
 
 afterEach(async () => {
-  await rmdir(join(cwd(), 'test', 'update-files', 'testdata'), { recursive: true }).catch(() => { })
+  await rm(join(cwd(), 'test', 'update-files', 'testdata'), { recursive: true }).catch(() => { })
 })
 
 it('should skip to modify the manifest file if version field is not specified', async () => {

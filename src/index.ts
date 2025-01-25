@@ -1,7 +1,7 @@
 import { versionBump, versionBumpInfo } from './version-bump'
 
 export * from './config'
-export { ReleaseType } from './release-type'
+export type { ReleaseType } from './release-type'
 export * from './types/version-bump-options'
 export * from './types/version-bump-progress'
 
