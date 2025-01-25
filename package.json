@@ -83,7 +83,6 @@
     "args-tokenizer": "^0.3.0",
     "eslint": "^9.19.0",
     "esno": "^4.8.0",
-    "log-symbols": "^7.0.0",
     "picocolors": "^1.1.1",
     "rimraf": "^6.0.1",
     "tiny-conventional-commits-parser": "^0.0.1",

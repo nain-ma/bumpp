@@ -1,11 +1,11 @@
 import type { VersionBumpProgress } from '../types/version-bump-progress'
 import process from 'node:process'
-import symbols from 'log-symbols'
 import { x } from 'tinyexec'
 import { ProgressEvent } from '../types/version-bump-progress'
 import { versionBump } from '../version-bump'
 import { ExitCode } from './exit-code'
 import { parseArgs } from './parse-args'
+import { symbols } from './symbols'
 
 /**
  * The main entry point of the CLI
