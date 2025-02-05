@@ -2,7 +2,7 @@
   "name": "bumpp",
   "type": "module",
   "version": "10.0.1",
-  "packageManager": "pnpm@9.15.4",
+  "packageManager": "pnpm@10.2.0",
   "description": "Bump version, commit changes, tag, and push to Git",
   "authors": [
     {
@@ -69,16 +69,16 @@
     "escalade": "^3.2.0",
     "js-yaml": "^4.1.0",
     "jsonc-parser": "^3.3.1",
-    "package-manager-detector": "^0.2.8",
+    "package-manager-detector": "^0.2.9",
     "prompts": "^2.4.2",
-    "semver": "^7.6.3",
+    "semver": "^7.7.1",
     "tinyexec": "^0.3.2",
     "tinyglobby": "^0.2.10"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^4.0.0",
+    "@antfu/eslint-config": "^4.1.1",
     "@types/js-yaml": "^4.0.9",
-    "@types/node": "^22.10.10",
+    "@types/node": "^22.13.1",
     "@types/prompts": "^2.4.9",
     "@types/semver": "^7.5.8",
     "eslint": "^9.19.0",
@@ -88,6 +88,6 @@
     "tiny-conventional-commits-parser": "^0.0.1",
     "typescript": "^5.7.3",
     "unbuild": "^3.3.1",
-    "vitest": "^3.0.4"
+    "vitest": "^3.0.5"
   }
 }
