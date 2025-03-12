@@ -4,8 +4,8 @@ import type { VersionBumpOptions } from './types/version-bump-options'
 import fsSync from 'node:fs'
 import fs from 'node:fs/promises'
 import process from 'node:process'
-import yaml from 'js-yaml'
 import { glob } from 'tinyglobby'
+import yaml from 'yaml'
 import { isReleaseType } from './release-type'
 
 interface Interface {
@@ -126,7 +126,7 @@ export async function normalizeOptions(raw: VersionBumpOptions): Promise<Normali
       // read pnpm-workspace.yaml
       const pnpmWorkspace = await fs.readFile('pnpm-workspace.yaml', 'utf8')
       // parse yaml
-      const workspaces = yaml.load(pnpmWorkspace) as { packages: string[] }
+      const workspaces = yaml.parse(pnpmWorkspace) as { packages: string[] }
       // append package.json to each workspace string
       const workspacesWithPackageJson = workspaces.packages.map(workspace => `${workspace}/package.json`)
       // start with ! or already in files should be excluded

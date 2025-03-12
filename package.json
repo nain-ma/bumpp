@@ -2,7 +2,7 @@
   "name": "bumpp",
   "type": "module",
   "version": "10.0.3",
-  "packageManager": "pnpm@10.2.0",
+  "packageManager": "pnpm@10.6.2",
   "description": "Bump version, commit changes, tag, and push to Git",
   "authors": [
     {
@@ -55,39 +55,38 @@
     "lint": "eslint .",
     "build": "unbuild",
     "stub": "unbuild --stub",
-    "start": "esno src/cli/run.ts",
+    "start": "tsx src/cli/run.ts",
     "test": "vitest",
-    "bumpp": "esno src/cli/run.ts",
+    "bumpp": "tsx src/cli/run.ts",
     "prepublishOnly": "pnpm run build",
     "release": "pnpm run bumpp && pnpm publish",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "ansis": "^3.17.0",
     "args-tokenizer": "^0.3.0",
     "c12": "^3.0.2",
     "cac": "^6.7.14",
     "escalade": "^3.2.0",
-    "js-yaml": "^4.1.0",
     "jsonc-parser": "^3.3.1",
-    "package-manager-detector": "^0.2.9",
-    "prompts": "^2.4.2",
+    "package-manager-detector": "^1.0.0",
     "semver": "^7.7.1",
     "tinyexec": "^0.3.2",
-    "tinyglobby": "^0.2.10"
+    "tinyglobby": "^0.2.12",
+    "yaml": "^2.7.0"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^4.1.1",
-    "@types/js-yaml": "^4.0.9",
-    "@types/node": "^22.13.1",
+    "@antfu/eslint-config": "^4.8.1",
+    "@types/node": "^22.13.10",
     "@types/prompts": "^2.4.9",
     "@types/semver": "^7.5.8",
-    "ansis": "^3.12.0",
-    "eslint": "^9.19.0",
-    "esno": "^4.8.0",
+    "eslint": "^9.22.0",
+    "prompts": "^2.4.2",
     "rimraf": "^6.0.1",
     "tiny-conventional-commits-parser": "^0.0.1",
-    "typescript": "^5.7.3",
-    "unbuild": "^3.3.1",
-    "vitest": "^3.0.5"
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.2",
+    "unbuild": "^3.5.0",
+    "vitest": "^3.0.8"
   }
 }

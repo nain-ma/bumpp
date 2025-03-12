@@ -8,6 +8,12 @@ export default defineBuildConfig({
   declaration: true,
   clean: true,
   rollup: {
-    inlineDependencies: true,
+    inlineDependencies: [
+      'tiny-conventional-commits-parser',
+
+      'prompts',
+      'kleur',
+      'sisteransi',
+    ],
   },
 })
