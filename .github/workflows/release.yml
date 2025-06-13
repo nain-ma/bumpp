@@ -4,11 +4,27 @@ permissions:
   contents: write
 
 on:
-  push:
-    tags:
-      - 'v*'
+  workflow_call:
+    outputs:
+      devops_approval_time:
+        description: DevOps approval time
+        value: ${{ jobs.devops-approval.outputs.APPROVAL_TIMESTAMP }}
+      qa_approval_time:
+        description: QA approval time
+        value: ${{ jobs.qa-approval.outputs.APPROVAL_TIMESTAMP }}
 
 jobs:
+  devops-approval:
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.devops_approval_environment }}
+    steps:
+      - name: DevOps approval
+        id: approval
+        run: |
+          echo "Deploy on peak traffic period has been approved by DevOps."
+          echo "APPROVAL_TIMESTAMP=$(date +%s)" >> $GITHUB_OUTPUT
+    outputs:
+      APPROVAL_TIMESTAMP: ${{ steps.approval.outputs.APPROVAL_TIMESTAMP }
   release:
     runs-on: ubuntu-latest
     steps:
