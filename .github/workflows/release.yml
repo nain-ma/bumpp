@@ -5,6 +5,10 @@ permissions:
 
 on:
   workflow_call:
+    inputs:
+      peak_approval_environment:
+        required: true
+        type: string
     outputs:
       devops_approval_time:
         description: DevOps approval time
