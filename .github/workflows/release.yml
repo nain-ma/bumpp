@@ -4,11 +4,17 @@ permissions:
   contents: write
 
 on:
-  workflow_call:
+  workflow_dispatch:
     inputs:
-      peak_approval_environment:
-        required: true
+      NPM_PUBLISH_TAG:
+        description: "The NPM publish tag (e.g., `latest` or `beta`). This tag helps differentiate between stable and pre-release versions during publishing."
+        required: false
+        default: latest
         type: string
+        options:
+          - latest
+          - beta
+  workflow_call:
     outputs:
       devops_approval_time:
         description: DevOps approval time
@@ -20,7 +26,7 @@ on:
 jobs:
   devops-approval:
     runs-on: ubuntu-latest
-    environment: ${{ inputs.devops_approval_environment }}
+    environment: production
     steps:
       - name: DevOps approval
         id: approval
@@ -28,8 +34,10 @@ jobs:
           echo "Deploy on peak traffic period has been approved by DevOps."
           echo "APPROVAL_TIMESTAMP=$(date +%s)" >> $GITHUB_OUTPUT
     outputs:
-      APPROVAL_TIMESTAMP: ${{ steps.approval.outputs.APPROVAL_TIMESTAMP }
+      APPROVAL_TIMESTAMP: ${{ steps.approval.outputs.APPROVAL_TIMESTAMP }}
+
   release:
+    needs: [devops-approval]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
